@@ -1,0 +1,37 @@
+envFrom:
+- secretRef:
+    name: traefik-cf-secret
+
+logs:
+  access:
+    enabled: true
+
+globalArguments :
+- "--certificatesResolvers.cf.acme.dnsChallenge.provider=cloudflare"
+- "--certificatesResolvers.cf.acme.email=atkwin35@gmail.com"
+- "--certificatesResolvers.cf.acme.storage=/data/cf.acme.json"
+- "--entryPoints.websecure.forwardedHeaders.insecure"
+- "--certificatesResolvers.tls.acme.tlsChallenge=true"
+- "--certificatesResolvers.tls.acme.email=atkwin35@gmail.com"
+- "--certificatesResolvers.tls.acme.storage=/data/tls.acme.json"
+  #- "--certificatesResolvers.myresolver.acme.storage=/data/myresolver.acme.json"
+  #- "--certificatesResolvers.myresolver.acme.email=atkwin35@gmail.com"
+  #- "--certificatesResolvers.myresolver.acme.httpChallenge.entrypoint=web"
+ports:
+  web:
+    redirectTo: 
+      port: websecure
+    nodePort: 30080
+  websecure:
+    nodePort: 30443
+  grpc:
+    port: 9090
+    expose: true
+    exposedPort: 9090
+    protocol: TCP
+    nodePort: 30090
+service:
+  enabled: true
+deployment:
+  enabled: true
+  replicas: 1

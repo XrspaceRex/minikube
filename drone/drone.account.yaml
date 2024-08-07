@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: xrspace-studio-drone
+secrets:
+- name: xrspace-studio-drone-token
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: xrspace-studio-drone-token
+  annotations:
+    kubernetes.io/service-account.name: xrspace-studio-drone
+type: kubernetes.io/service-account-token

@@ -1,0 +1,18 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: dashboard-rex-proxy
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    certResolver: cf
+    domains:
+    - main: kubernetes.rex.baby
+  routes:
+  - match: Host(`kubernetes.rex.baby`)
+    kind: Rule
+    services:
+    - name: kubernetes-dashboard-web
+      port: 8000

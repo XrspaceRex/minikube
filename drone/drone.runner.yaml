@@ -1,0 +1,9 @@
+rbac:
+  buildNamespaces:
+    - drone
+
+env:
+  DRONE_RPC_SECRET: GENERATE_A_SECRET
+  DRONE_RPC_HOST: drone.rex.baby
+  DRONE_RPC_PROTO: https
+  DRONE_NAMESPACE_DEFAULT: drone

@@ -1,0 +1,18 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: xrspace-studio-drone-proxy
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    certResolver: cf
+    domains:
+    - main: drone.rex.baby
+  routes:
+  - match: Host(`drone.rex.baby`)
+    kind: Rule
+    services:
+    - name: drone
+      port: 8080
